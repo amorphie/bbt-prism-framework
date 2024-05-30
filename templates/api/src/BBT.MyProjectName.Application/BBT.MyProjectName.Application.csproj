@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BBT.MyProjectName</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AutoMapper\BBT.Prism.AutoMapper.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Ddd.Application\BBT.Prism.Ddd.Application.csproj" />
+        <ProjectReference Include="..\BBT.MyProjectName.Domain\BBT.MyProjectName.Domain.csproj" />
+        <ProjectReference Include="..\BBT.MyProjectName.Application.Contracts\BBT.MyProjectName.Application.Contracts.csproj" />
+    </ItemGroup>
+
+</Project>

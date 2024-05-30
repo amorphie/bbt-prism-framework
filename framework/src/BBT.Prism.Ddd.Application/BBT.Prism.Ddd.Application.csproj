@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <AssemblyName>BBT.Prism.Ddd.Application</AssemblyName>
+        <PackageId>BBT.Prism.Ddd.Application</PackageId>
+        <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <RootNamespace />
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\BBT.Prism.Ddd.Application.Contracts\BBT.Prism.Ddd.Application.Contracts.csproj" />
+        <ProjectReference Include="..\BBT.Prism.Ddd.Domain\BBT.Prism.Ddd.Domain.csproj" />
+        <ProjectReference Include="..\BBT.Prism.Mapper\BBT.Prism.Mapper.csproj" />
+    </ItemGroup>
+
+</Project>

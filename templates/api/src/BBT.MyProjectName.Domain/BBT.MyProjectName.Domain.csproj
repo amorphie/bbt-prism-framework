@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BBT.MyProjectName</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Ddd.Domain\BBT.Prism.Ddd.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Data.Seeding\BBT.Prism.Data.Seeding.csproj" />
+        <ProjectReference Include="..\BBT.MyProjectName.Domain.Shared\BBT.MyProjectName.Domain.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

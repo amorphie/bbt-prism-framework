@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <Import Project="..\..\common.props" />
+    
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <RootNamespace>BBT.MyProjectName</RootNamespace>
+        <PreserveCompilationReferences>true</PreserveCompilationReferences>
+        <UserSecretsId>BBT.MyProjectName-c2d31439-b723-48e2-b061-5ebd7aeb6010</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore\BBT.Prism.AspNetCore.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.Serilog\BBT.Prism.AspNetCore.Serilog.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.HealthChecks\BBT.Prism.AspNetCore.HealthChecks.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.HealthChecks.Dapr\BBT.Prism.AspNetCore.HealthChecks.Dapr.csproj" />
+        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.Dapr.EventBus\BBT.Prism.AspNetCore.Dapr.EventBus.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\BBT.MyProjectName.Application\BBT.MyProjectName.Application.csproj" />
+        <ProjectReference Include="..\..\src\BBT.MyProjectName.EntityFrameworkCore\BBT.MyProjectName.EntityFrameworkCore.csproj" />
+    </ItemGroup>   
+    
+    <ItemGroup>
+        <PackageReference Include="Asp.Versioning.Http" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+        <PackageReference Include="Dapr.Extensions.Configuration" />
+        <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+
+        <PackageReference Include="OpenTelemetry" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Compile Remove="Logs\**" />
+        <Content Remove="Logs\**" />
+        <EmbeddedResource Remove="Logs\**" />
+        <None Remove="Logs\**" />
+    </ItemGroup>
+    
+</Project>

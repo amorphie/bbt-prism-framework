@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <AssemblyName>BBT.Prism.AspNetCore.HealthChecks.Dapr</AssemblyName>
+        <PackageId>BBT.Prism.AspNetCore.HealthChecks.Dapr</PackageId>
+        <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <IsPackable>true</IsPackable>
+        <OutputType>Library</OutputType>
+        <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+        <RootNamespace />
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\BBT.Prism.Dapr\BBT.Prism.Dapr.csproj" />
+        <ProjectReference Include="..\BBT.Prism.AspNetCore.HealthChecks\BBT.Prism.AspNetCore.HealthChecks.csproj" />
+    </ItemGroup>
+
+</Project>
