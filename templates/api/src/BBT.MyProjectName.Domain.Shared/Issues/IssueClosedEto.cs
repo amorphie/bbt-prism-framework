@@ -3,7 +3,7 @@ using BBT.Prism.EventBus;
 
 namespace BBT.MyProjectName.Issues;
 
-[EventName("BBT.MyNameProject.IssueClosed")]
+[EventName("BBT.MyProjectName.IssueClosed")]
 public class IssueClosedEto
 {
     public Guid IssueId { get; set; }
