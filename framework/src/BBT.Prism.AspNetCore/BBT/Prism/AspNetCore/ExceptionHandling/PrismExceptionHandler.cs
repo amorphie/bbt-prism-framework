@@ -56,7 +56,10 @@ public class PrismExceptionHandler : IExceptionHandler
                             exceptionHandlingOptions.SendExceptionsDetailsToClients;
                         options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
                     })
-                )
+                ), new JsonSerializerOptions() {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                }
             ), cancellationToken: cancellationToken);
     }
 
