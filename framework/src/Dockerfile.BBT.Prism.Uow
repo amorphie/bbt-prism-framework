@@ -1,0 +1,7 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.2 AS build
+WORKDIR /src
+COPY . .
+
+RUN dotnet build "BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release -o /app/build
+RUN dotnet pack --version-suffix prerelease-caching -c Release --no-restore -o /app/build || true
+RUN dotnet nuget push /app/build/Dodge.Core.Caching*.nupkg --source https://api.nuget.org/v3/index.json --api-key "API-KEY"
