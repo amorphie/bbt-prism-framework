@@ -26,5 +26,7 @@ jobs:
       run: dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
     - name: Build
       run: dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: list
+      run: ls -l
+    - name: pack
+      run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" 
