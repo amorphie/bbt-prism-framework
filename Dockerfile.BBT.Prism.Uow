@@ -8,9 +8,11 @@ WORKDIR /src
 COPY . .
 
 # Restore dependencies
+RUN dotnet restore "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj"
 RUN dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
 
 # Build the project
+RUN dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" -c Release -o /app/build
 RUN dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release -o /app/build
 
 # Pack the project
