@@ -1,3 +1,4 @@
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Set the working directory
@@ -9,7 +10,6 @@ COPY . .
 # Restore dependencies
 RUN dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
 
-RUN while lsof /app/build/BBT.Prism.Core.deps.json; do sleep 1; done
 # Build the project
 RUN dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release -o /app/build
 RUN ls /app/build
