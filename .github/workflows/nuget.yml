@@ -44,7 +44,6 @@ jobs:
           echo $path
           dotnet pack "framework/src/$path" /p:Version=$Version --output packages/
         done
-        ls -l packages
     - name: publish
       run: |
         for path in $(ls framework/src)
