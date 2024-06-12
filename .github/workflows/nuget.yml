@@ -30,8 +30,19 @@ jobs:
           dotnet restore "framework/src/$path"
         done
     - name: Build
-      run: dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --no-restore
+      run: |
+        for path in $(ls framework/src)
+        do
+          echo $path
+          dotnet build "framework/src/$path" --no-restore
+        done
     - name: pack
-      run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --output packages/
+      run: |
+        for path in $(ls framework/src)
+        do
+          echo $path
+          dotnet pack "framework/src/$path" --output packages/
+        done
+        ls -l packages
     - name: publish
       run: dotnet nuget push packages/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
