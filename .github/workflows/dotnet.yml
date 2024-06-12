@@ -24,3 +24,11 @@ jobs:
       run: dotnet restore "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj"
     - name: Build
       run: dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" --no-restore
+    - name: NuGet Publisher
+      uses: Jacup/publish-nuget@v2.6.0
+      with:
+        # Filepath of the project to be packaged, relative to root of repository
+        PROJECT_FILE_PATH: framework/src/BBT.Prism.Uow 
+        NUGET_SOURCE: https://api.nuget.org/v3/index.json
+          
+          
