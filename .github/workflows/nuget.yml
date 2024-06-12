@@ -26,7 +26,8 @@ jobs:
       run: |
         for path in framework/src
         do
-          dotnet restore framework/src/$path
+          echo $path
+          dotnet restore "framework/src/$path"
         done
     - name: Build
       run: dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --no-restore
