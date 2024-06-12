@@ -17,7 +17,7 @@ jobs:
 
       - name: Run
         run : |
-            mkdir app/build
+            mkdir -p app/build
             dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
             dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" -c Release --no-restore -o app/build
             dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release --no-build --output app/build
