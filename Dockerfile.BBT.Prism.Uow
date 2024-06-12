@@ -1,7 +1,20 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Set the working directory
 WORKDIR /src
+
+# Copy the project files
 COPY . .
 
+# Restore dependencies
+RUN dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
+
+# Build the project
 RUN dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release -o /app/build
-RUN dotnet pack --version-suffix prerelease-caching -c Release --no-restore -o /app/build || true
+
+# Pack the project
+RUN dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release --no-build --output /app/build
+
+# Push the package to NuGet
 RUN dotnet nuget push /app/build/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key "API-KEY"
+
