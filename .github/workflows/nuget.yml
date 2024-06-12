@@ -23,11 +23,13 @@ jobs:
     - name: Create Folder
       run: mkdir -p packages
     - name: Restore dependencies
-      run: dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
+      run: |
+        for path in framework/src
+        do
+          dotnet restore framework/src/$path
+        done
     - name: Build
       run: dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --no-restore
-    - name: list
-      run: ls -l -R
     - name: pack
       run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --output packages/
     - name: publish
