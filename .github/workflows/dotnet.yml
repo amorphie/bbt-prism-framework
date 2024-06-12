@@ -17,9 +17,10 @@ jobs:
 
       - name: Run
         run : |
+            mkdir app/build
             dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
-            dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" -c Release --no-restore -o /app/build
-            dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release --no-build --output /app/build
+            dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" -c Release --no-restore -o app/build
+            dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" -c Release --no-build --output app/build
             ls -l
-            dotnet nuget push /app/build/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key "API-KEY"
+            dotnet nuget push app/build/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key "API-KEY"
 
