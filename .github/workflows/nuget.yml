@@ -6,8 +6,12 @@ name: .NET
 on:
   push:
     branches: [ "master" ]
+    paths:
+      - common.props
   pull_request:
     branches: [ "master" ]
+    paths:
+      - common.props
 
 jobs:
   build:
