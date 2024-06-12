@@ -25,7 +25,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
     - name: Build
-      run: dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" --no-restore
+      run: dotnet build "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --no-restore
     - name: list
       run: ls -l -R
     - name: pack
