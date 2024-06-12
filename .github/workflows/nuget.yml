@@ -27,6 +27,6 @@ jobs:
     - name: Build
       run: dotnet build "framework/src/BBT.Prism.Core/BBT.Prism.Core.csproj" --no-restore
     - name: list
-      run: ls -l
+      run: ls -l -R
     - name: pack
       run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" 
