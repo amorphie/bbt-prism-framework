@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Create Folder
-      run: mkdir -p app/build
+      run: mkdir -p packages
     - name: Restore dependencies
       run: dotnet restore "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj"
     - name: Build
@@ -29,4 +29,4 @@ jobs:
     - name: list
       run: ls -l -R
     - name: pack
-      run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" 
+      run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --output packages/
