@@ -45,4 +45,9 @@ jobs:
         done
         ls -l packages
     - name: publish
-      run: dotnet nuget push packages/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
+      run: |
+        for path in $(ls framework/src)
+        do
+          echo $path
+          # dotnet nuget push packages/$path*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
+        done
