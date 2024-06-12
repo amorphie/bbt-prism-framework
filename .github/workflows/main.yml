@@ -1,0 +1,36 @@
+name: CONSENT-CI-CD
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  APP_NAME: amorphie.consent
+  NAMESPACE: amorphie-consent
+  CLUSTER_NAME: BurganAKS
+  CLUSTER_RESOURCE_GROUP: BurganTech
+  SECRET: docker-hub
+
+jobs:
+  ci-cd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+          
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile.BBT.Prism.Uow
+          push: false
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.APP_NAME }}:${{ github.sha }}
+
+
+
+    
+
+
+
+     
