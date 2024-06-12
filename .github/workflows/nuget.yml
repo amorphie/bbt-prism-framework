@@ -38,10 +38,11 @@ jobs:
         done
     - name: pack
       run: |
+        Version=$(cat common.props | grep -oP '(?<=<Version>).*?(?=</Version>)') 
         for path in $(ls framework/src)
         do
           echo $path
-          dotnet pack "framework/src/$path" /p:Version=1.0.0 --output packages/
+          dotnet pack "framework/src/$path" /p:Version=$Version --output packages/
         done
         ls -l packages
     - name: publish
