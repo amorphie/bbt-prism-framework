@@ -31,4 +31,4 @@ jobs:
     - name: pack
       run: dotnet pack "framework/src/BBT.Prism.Uow/BBT.Prism.Uow.csproj" --output packages/
     - name: publish
-      run: dotnet nuget push packages/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secret.API-KEY }}
+      run: dotnet nuget push packages/BBT.Prism.Uow*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secret.api_key }}
