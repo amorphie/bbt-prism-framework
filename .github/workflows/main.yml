@@ -1,4 +1,4 @@
-name: CONSENT-CI-CD
+name: bbt-prism-framework-nuget
 on:
   push:
     branches: [ main ]
@@ -7,11 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: amorphie.consent
-  NAMESPACE: amorphie-consent
-  CLUSTER_NAME: BurganAKS
-  CLUSTER_RESOURCE_GROUP: BurganTech
-  SECRET: docker-hub
+  APP_NAME: nuget
 
 jobs:
   ci-cd:
@@ -25,7 +21,7 @@ jobs:
           context: .
           file: ./Dockerfile.BBT.Prism.Uow
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.APP_NAME }}:${{ github.sha }}
+          tags: nuget 
 
 
 
