@@ -24,7 +24,7 @@ jobs:
       run: mkdir -p packages
     - name: Restore dependencies
       run: |
-        for path in framework/src
+        for path in $(ls framework/src)
         do
           echo $path
           dotnet restore "framework/src/$path"
