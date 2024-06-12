@@ -41,7 +41,7 @@ jobs:
         for path in $(ls framework/src)
         do
           echo $path
-          dotnet pack "framework/src/$path" --output packages/
+          dotnet pack "framework/src/$path" /p:Version=1.0.0 --output packages/
         done
         ls -l packages
     - name: publish
