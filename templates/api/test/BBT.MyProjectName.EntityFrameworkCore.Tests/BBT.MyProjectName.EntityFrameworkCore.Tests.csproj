@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.EntityFrameworkCore.Sqlite\BBT.Prism.EntityFrameworkCore.Sqlite.csproj" />
+        <PackageReference Include="BBT.Prism.EntityFrameworkCore.Sqlite" Version="$(PrismPackageVersion)" />
         <ProjectReference Include="..\..\src\BBT.MyProjectName.EntityFrameworkCore\BBT.MyProjectName.EntityFrameworkCore.csproj" />
         <ProjectReference Include="..\BBT.MyProjectName.Application.Tests\BBT.MyProjectName.Application.Tests.csproj" />
     </ItemGroup>

@@ -1,5 +1,6 @@
 using System;
 using System.CommandLine;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;

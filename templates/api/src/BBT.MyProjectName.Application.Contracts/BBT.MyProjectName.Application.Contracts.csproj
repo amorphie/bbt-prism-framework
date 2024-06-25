@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Ddd.Application.Contracts\BBT.Prism.Ddd.Application.Contracts.csproj" />
+        <PackageReference Include="BBT.Prism.Ddd.Application.Contracts" Version="$(PrismPackageVersion)" />
         <ProjectReference Include="..\BBT.MyProjectName.Domain.Shared\BBT.MyProjectName.Domain.Shared.csproj" />
     </ItemGroup>
 

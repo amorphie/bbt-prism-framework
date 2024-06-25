@@ -57,7 +57,7 @@ public class MyProjectNameHttpApiHostModule : PrismModule
     {
         Configure<PrismDaprEventBusOptions>(options =>
         {
-            options.PubSubName = "MyProjectName-pubsub";
+            options.PubSubName = "myprojectname-pubsub";
         });
     }
 

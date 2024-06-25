@@ -29,7 +29,7 @@ internal class Program
             Log.Information($"Starting {ApplicationName}.");
             var builder = WebApplication.CreateBuilder(args);
             builder.Configuration.SetBasePath(Directory.GetCurrentDirectory());
-            builder.Configuration.AddDaprSecretStore($"{ApplicationName}-secretstore", daprClient);
+            builder.Configuration.AddDaprSecretStore("myprojectname-secretstore", daprClient);
             builder.WebHost.ConfigureKestrel(option => option.AddServerHeader = false);
             builder.ConfigureOpenTelemetryLogging();
             builder.Host.UseSerilog();

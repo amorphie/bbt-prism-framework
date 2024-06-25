@@ -11,11 +11,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore\BBT.Prism.AspNetCore.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.Serilog\BBT.Prism.AspNetCore.Serilog.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.HealthChecks\BBT.Prism.AspNetCore.HealthChecks.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.HealthChecks.Dapr\BBT.Prism.AspNetCore.HealthChecks.Dapr.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AspNetCore.Dapr.EventBus\BBT.Prism.AspNetCore.Dapr.EventBus.csproj" />
+        <PackageReference Include="BBT.Prism.AspNetCore" Version="$(PrismPackageVersion)" />
+        <PackageReference Include="BBT.Prism.AspNetCore.Serilog" Version="$(PrismPackageVersion)" />
+        <PackageReference Include="BBT.Prism.AspNetCore.HealthChecks" Version="$(PrismPackageVersion)" />
+        <PackageReference Include="BBT.Prism.AspNetCore.HealthChecks.Dapr" Version="$(PrismPackageVersion)" />
+        <PackageReference Include="BBT.Prism.AspNetCore.Dapr.EventBus" Version="$(PrismPackageVersion)" />
     </ItemGroup>
 
     <ItemGroup>

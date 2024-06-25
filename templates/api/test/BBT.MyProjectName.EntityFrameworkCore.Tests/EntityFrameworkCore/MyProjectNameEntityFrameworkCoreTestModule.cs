@@ -1,3 +1,4 @@
+using System;
 using BBT.Prism;
 using BBT.Prism.EntityFrameworkCore.Sqlite;
 using BBT.Prism.Modularity;
@@ -48,7 +49,7 @@ public class MyProjectNameEntityFrameworkCoreTestModule : PrismModule
             .Options;
 
         var prodiver = services.GetServiceProviderOrNull();
-        using var context = new MyProjectNameDbContext(prodiver, options);
+        using var context = new MyProjectNameDbContext(prodiver ?? throw new InvalidOperationException(), options);
         context.GetService<IRelationalDatabaseCreator>().CreateTables();
 
         return connection;

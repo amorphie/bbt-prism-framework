@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Helpers;
 
@@ -189,13 +190,43 @@ public class SolutionRenamer
             var content = File.ReadAllText(file, encoding);
             if (placeHolder != null)
             {
-                var newContent = content.Replace(placeHolder, name);
+                // var newContent = content.Replace(placeHolder, name);
+                var newContent = ReplaceCaseInsensitive(content, placeHolder, name!);
                 if (newContent != content)
                 {
                     File.WriteAllText(file, newContent, encoding);
                 }
             }
         }
+    }
+    
+    private static string ReplaceCaseInsensitive(string input, string oldValue, string newValue)
+    {
+        return Regex.Replace(input, oldValue, match =>
+        {
+            string replacement = newValue;
+
+            // Eğer match.Value, newValue'dan uzunsa, newValue'yu match.Value ile aynı uzunluğa kısalt
+            if (match.Value.Length > newValue.Length)
+            {
+                replacement = newValue.PadRight(match.Value.Length);
+            }
+
+            // Her eşleşme için yeni değerin aynı büyük/küçük harf kalıbında olanı ile değiştir
+            char[] replacementChars = replacement.ToCharArray();
+            for (int i = 0; i < match.Value.Length; i++)
+            {
+                if (char.IsUpper(match.Value[i]))
+                {
+                    replacementChars[i] = char.ToUpper(replacementChars[i]);
+                }
+                else
+                {
+                    replacementChars[i] = char.ToLower(replacementChars[i]);
+                }
+            }
+            return new string(replacementChars).Trim();
+        }, RegexOptions.IgnoreCase);
     }
 
     private static long GetFileSize(string file)

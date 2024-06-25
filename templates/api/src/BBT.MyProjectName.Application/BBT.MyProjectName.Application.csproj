@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.AutoMapper\BBT.Prism.AutoMapper.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Ddd.Application\BBT.Prism.Ddd.Application.csproj" />
+        <PackageReference Include="BBT.Prism.AutoMapper" Version="$(PrismPackageVersion)" />
+        <PackageReference Include="BBT.Prism.Ddd.Application" Version="$(PrismPackageVersion)" />
         <ProjectReference Include="..\BBT.MyProjectName.Domain\BBT.MyProjectName.Domain.csproj" />
         <ProjectReference Include="..\BBT.MyProjectName.Application.Contracts\BBT.MyProjectName.Application.Contracts.csproj" />
     </ItemGroup>

@@ -75,12 +75,12 @@ $solutions = (
 $projects = (
 
     # framework
-    "framework/src/BBT.Prism.AspnetCore",
-    "framework/src/BBT.Prism.AspnetCore.Dapr",
-    "framework/src/BBT.Prism.AspnetCore.Dapr.EventBus",
-    "framework/src/BBT.Prism.AspnetCore.HealthChecks",
-    "framework/src/BBT.Prism.AspnetCore.HealthChecks.Dapr",
-    "framework/src/BBT.Prism.AspnetCore.Serilog",
+    "framework/src/BBT.Prism.AspNetCore",
+    "framework/src/BBT.Prism.AspNetCore.Dapr",
+    "framework/src/BBT.Prism.AspNetCore.Dapr.EventBus",
+    "framework/src/BBT.Prism.AspNetCore.HealthChecks",
+    "framework/src/BBT.Prism.AspNetCore.HealthChecks.Dapr",
+    "framework/src/BBT.Prism.AspNetCore.Serilog",
     "framework/src/BBT.Prism.Audingt.Contracts",
     "framework/src/BBT.Prism.AutoMapper",
     "framework/src/BBT.Prism.Core",

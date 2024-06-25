@@ -8,7 +8,7 @@ namespace BBT.Prism.AspNetCore.HealthChecks.Dapr;
 
 public class DaprPubSubHealthCheck(DaprClient daprClient) : IHealthCheck
 {
-    internal const string Name = "MyProjectName-pubsub";
+    internal const string Name = "myprojectname-pubsub";
     
     private readonly DaprClient _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
 

@@ -8,7 +8,7 @@ namespace BBT.Prism.AspNetCore.HealthChecks.Dapr;
 
 public class DaprSecretStoreHealthCheck(DaprClient daprClient) : IHealthCheck
 {
-    internal const string Name = "MyProjectName-secretstore";
+    internal const string Name = "myprojectname-secretstore";
     private readonly DaprClient _daprClient = daprClient ?? throw new ArgumentNullException(nameof(daprClient));
 
     public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)

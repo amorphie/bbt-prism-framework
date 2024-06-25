@@ -10,7 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.Ddd.Domain.Shared\BBT.Prism.Ddd.Domain.Shared.csproj"/>
+        <PackageReference Include="BBT.Prism.Ddd.Domain.Shared" Version="$(PrismPackageVersion)" />
     </ItemGroup>
     
 </Project>

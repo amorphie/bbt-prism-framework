@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BBT.Prism.EntityFrameworkCore.PostgreSql" Version="$(PrismPackageVersion)" />
         <ProjectReference Include="..\BBT.MyProjectName.Domain\BBT.MyProjectName.Domain.csproj" />
-        <ProjectReference Include="..\..\..\..\framework\src\BBT.Prism.EntityFrameworkCore.PostgreSql\BBT.Prism.EntityFrameworkCore.PostgreSql.csproj" />
     </ItemGroup>
 
     <ItemGroup>

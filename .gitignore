@@ -267,6 +267,9 @@ tempkey.jwk
 *.vshistory*
 *.lock
 
+#DNT
+switcher.json
+
 appsettings.secrets.json
 appsettings.Development.json
 deploy/nuget-api-key.txt
@@ -274,8 +277,4 @@ deploy/npm-auth-token.txt
 deploy/ssh-password.txt
 deploy/github-api-key.txt
 deploy/_run_all_log.txt
-switcher.json
 **/**/Logs/*.json
-
-#DNT
-switcher.json
