@@ -53,5 +53,5 @@ jobs:
         for path in $(ls -d framework/src/*)
         do
           echo $path
-          dotnet nuget push packages/$path*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
+          dotnet nuget push $path/packages*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
         done
