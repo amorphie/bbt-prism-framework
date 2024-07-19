@@ -10,10 +10,12 @@ namespace BBT.Prism.Application.Dtos;
 public abstract class AuditedEntityDto : CreationAuditedEntityDto, IAuditedObject
 {
     /// <inheritdoc />
-    public DateTime? LastModificationTime { get; set; }
+    public DateTime? ModifiedAt { get; set; }
 
     /// <inheritdoc />
-    public Guid? LastModifierId { get; set; }
+    public Guid? ModifiedBy { get; set; }
+    /// <inheritdoc />
+    public Guid? ModifiedByBehalfOf { get; set;}
 }
 
 /// <summary>
@@ -24,8 +26,10 @@ public abstract class AuditedEntityDto : CreationAuditedEntityDto, IAuditedObjec
 public abstract class AuditedEntityDto<TPrimaryKey> : CreationAuditedEntityDto<TPrimaryKey>, IAuditedObject
 {
     /// <inheritdoc />
-    public DateTime? LastModificationTime { get; set; }
+    public DateTime? ModifiedAt { get; set; }
 
     /// <inheritdoc />
-    public Guid? LastModifierId { get; set; }
+    public Guid? ModifiedBy { get; set; }
+    /// <inheritdoc />
+    public Guid? ModifiedByBehalfOf { get; set;}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Asp.Versioning;
 using BBT.MyProjectName.Extensions;
@@ -25,6 +26,19 @@ internal class Program
         {
             var daprClient = new DaprClientBuilder()
                 .Build();
+            
+            using (var tokenSource = new CancellationTokenSource(20000))
+            {
+                try
+                {
+                    await daprClient.WaitForSidecarAsync(tokenSource.Token);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal(ex, $"{ApplicationName} Dapr Sidecar doesn't respond!", ex.ToString());
+                    return 1;
+                }
+            }
 
             Log.Information($"Starting {ApplicationName}.");
             var builder = WebApplication.CreateBuilder(args);

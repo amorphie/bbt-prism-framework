@@ -116,9 +116,9 @@ public abstract class AbstractKeyReadOnlyAppService<TEntity, TGetOutputDto, TGet
     /// <param name="query">The query.</param>
     protected virtual IQueryable<TEntity> ApplyDefaultSorting(IQueryable<TEntity> query)
     {
-        if (typeof(TEntity).IsAssignableTo<IHasCreationTime>())
+        if (typeof(TEntity).IsAssignableTo<IHasCreatedAt>())
         {
-            return query.OrderByDescending(e => ((IHasCreationTime)e).CreationTime);
+            return query.OrderByDescending(e => ((IHasCreatedAt)e).CreatedAt);
         }
 
         throw new PrismException("No sorting specified but this query requires sorting. Override the ApplySorting or the ApplyDefaultSorting method for your application service derived from AbstractKeyReadOnlyAppService!");

@@ -2,7 +2,8 @@ using System;
 
 namespace BBT.Prism.Auditing;
 
-public interface ICreationAuditedObject : IHasCreationTime
+public interface ICreationAuditedObject : IHasCreatedAt
 {
-    Guid? CreatorId { get; }
+    Guid? CreatedBy { get; }
+    Guid? CreatedByBehalfOf { get; }
 }

@@ -20,10 +20,10 @@ public static class HealthChecksServiceCollectionExtensions
         // Other HealthChecks can be added here.
         healthChecksBuilder
             .AddNpgSql(configuration.GetConnectionString("Default")!, tags: new[] { "PostgresDb" })
-            .AddDapr(tags: new[] { "Dapr" })
-            .AddDaprSecretStore(tags: new[] { "DaprSecretStore" })
-            .AddDaprStateStore(tags: new[] { "DaprStateStore" })
-            .AddDaprPubSub(tags: new[] { "DaprPubSub" });
+            .AddDapr(tags: new[] { "ready", "Dapr" })
+            .AddDaprSecretStore(tags: new[] { "ready", "DaprSecretStore" })
+            .AddDaprStateStore(tags: new[] { "ready", "DaprStateStore" })
+            .AddDaprPubSub(tags: new[] { "ready", "DaprPubSub" });
         
         healthChecksBuilder
             .AddStartup(tags: new[] { "ready" });

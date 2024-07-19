@@ -10,10 +10,12 @@ namespace BBT.Prism.Application.Dtos;
 public abstract class CreationAuditedEntityDto : EntityDto, ICreationAuditedObject
 {
     /// <inheritdoc />
-    public DateTime CreationTime { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     /// <inheritdoc />
-    public Guid? CreatorId { get; set; }
+    public Guid? CreatedBy { get; set; }
+    /// <inheritdoc />
+    public Guid? CreatedByBehalfOf { get; set; }
 }
 
 /// <summary>
@@ -24,8 +26,10 @@ public abstract class CreationAuditedEntityDto : EntityDto, ICreationAuditedObje
 public abstract class CreationAuditedEntityDto<TPrimaryKey> : EntityDto<TPrimaryKey>, ICreationAuditedObject
 {
     /// <inheritdoc />
-    public DateTime CreationTime { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     /// <inheritdoc />
-    public Guid? CreatorId { get; set; }
+    public Guid? CreatedBy { get; set; }
+    /// <inheritdoc />
+    public Guid? CreatedByBehalfOf { get; set; }
 }

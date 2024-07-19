@@ -5,10 +5,10 @@ using BBT.Prism.Domain.Entities;
 
 namespace BBT.MyProjectName.Issues;
 
-public class Comment: Entity<Guid>, IHasCreationTime
+public class Comment: Entity<Guid>, IHasCreatedAt
 {
     public string Text { get; private set; }
-    public DateTime CreationTime { get; set; }
+    public DateTime CreatedAt { get; set; }
     public Guid IssueId { get; private set; }
     public Guid UserId { get; private set; }
 

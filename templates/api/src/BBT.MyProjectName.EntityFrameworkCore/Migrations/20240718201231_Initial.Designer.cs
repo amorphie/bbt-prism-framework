@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BBT.MyProjectName.Migrations
 {
     [DbContext(typeof(MyProjectNameDbContext))]
-    [Migration("20240530082121_Initial")]
+    [Migration("20240718201231_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,9 +32,9 @@ namespace BBT.MyProjectName.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreationTime")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreationTime");
+                        .HasColumnName("CreatedAt");
 
                     b.Property<Guid>("IssueId")
                         .HasColumnType("uuid");
@@ -94,11 +94,14 @@ namespace BBT.MyProjectName.Migrations
                         .HasColumnType("character varying(40)")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<DateTime>("CreationTime")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreationTime");
+                        .HasColumnName("CreatedAt");
 
-                    b.Property<Guid?>("CreatorId")
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CreatedByBehalfOf")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsClosed")
@@ -110,13 +113,17 @@ namespace BBT.MyProjectName.Migrations
                     b.Property<DateTime?>("LastCommentTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("LastModificationTime")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("LastModificationTime");
+                        .HasColumnName("ModifiedAt");
 
-                    b.Property<Guid?>("LastModifierId")
+                    b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uuid")
-                        .HasColumnName("LastModifierId");
+                        .HasColumnName("ModifiedBy");
+
+                    b.Property<Guid?>("ModifiedByBehalfOf")
+                        .HasColumnType("uuid")
+                        .HasColumnName("ModifiedByBehalfOf");
 
                     b.Property<Guid>("RepositoryId")
                         .HasColumnType("uuid");

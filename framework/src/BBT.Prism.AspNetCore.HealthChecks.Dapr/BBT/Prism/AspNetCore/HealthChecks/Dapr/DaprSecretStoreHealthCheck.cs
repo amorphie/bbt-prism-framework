@@ -15,7 +15,7 @@ public class DaprSecretStoreHealthCheck(DaprClient daprClient) : IHealthCheck
     {
         try
         {
-            var secretName = "MyProjectName";
+            var secretName = "myprojectname-secret";
             var result = await _daprClient.GetSecretAsync(Name, secretName, cancellationToken: cancellationToken);
 
             return result != null

@@ -4,5 +4,6 @@ namespace BBT.Prism.Auditing;
 
 public interface IModifyAuditedObject : IHasModifyTime
 {
-    Guid? LastModifierId { get; }
+    Guid? ModifiedBy { get; }
+    Guid? ModifiedByBehalfOf { get;}
 }

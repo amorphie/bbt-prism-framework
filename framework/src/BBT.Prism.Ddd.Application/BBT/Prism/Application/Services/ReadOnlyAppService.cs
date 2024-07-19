@@ -51,7 +51,7 @@ public abstract class ReadOnlyAppService<TEntity, TGetOutputDto, TGetListOutputD
     {
         if (typeof(TEntity).IsAssignableTo<ICreationAuditedObject>())
         {
-            return query.OrderByDescending(e => ((ICreationAuditedObject)e).CreationTime);
+            return query.OrderByDescending(e => ((ICreationAuditedObject)e).CreatedAt);
         }
         else
         {

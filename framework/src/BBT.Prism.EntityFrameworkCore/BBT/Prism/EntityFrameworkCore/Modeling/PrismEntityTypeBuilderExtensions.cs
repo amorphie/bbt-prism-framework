@@ -15,8 +15,8 @@ public static class PrismEntityTypeBuilderExtensions
         b.TryConfigureSoftDelete();
         b.TryConfigureDeletionTime();
         b.TryConfigureDeletionAudited();
-        b.TryConfigureCreationTime();
-        b.TryConfigureLastModificationTime();
+        b.TryConfigureCreatedAt();
+        b.TryConfigureModifiedAt();
         b.TryConfigureModificationAudited();
     }
 
@@ -90,19 +90,19 @@ public static class PrismEntityTypeBuilderExtensions
         }
     }
 
-    public static void ConfigureCreationTime<T>(this EntityTypeBuilder<T> b)
-        where T : class, IHasCreationTime
+    public static void ConfigureCreatedAt<T>(this EntityTypeBuilder<T> b)
+        where T : class, IHasCreatedAt
     {
-        b.As<EntityTypeBuilder>().TryConfigureCreationTime();
+        b.As<EntityTypeBuilder>().TryConfigureCreatedAt();
     }
 
-    public static void TryConfigureCreationTime(this EntityTypeBuilder b)
+    public static void TryConfigureCreatedAt(this EntityTypeBuilder b)
     {
-        if (b.Metadata.ClrType.IsAssignableTo<IHasCreationTime>())
+        if (b.Metadata.ClrType.IsAssignableTo<IHasCreatedAt>())
         {
-            b.Property(nameof(IHasCreationTime.CreationTime))
+            b.Property(nameof(IHasCreatedAt.CreatedAt))
                 .IsRequired()
-                .HasColumnName(nameof(IHasCreationTime.CreationTime));
+                .HasColumnName(nameof(IHasCreatedAt.CreatedAt));
         }
     }
 
@@ -116,23 +116,23 @@ public static class PrismEntityTypeBuilderExtensions
     {
         if (b.Metadata.ClrType.IsAssignableTo<ICreationAuditedObject>())
         {
-            b.As<EntityTypeBuilder>().TryConfigureCreationTime();
+            b.As<EntityTypeBuilder>().TryConfigureCreatedAt();
         }
     }
 
-    public static void ConfigureLastModificationTime<T>(this EntityTypeBuilder<T> b)
+    public static void ConfigureModifiedAt<T>(this EntityTypeBuilder<T> b)
         where T : class, IHasModifyTime
     {
-        b.As<EntityTypeBuilder>().TryConfigureLastModificationTime();
+        b.As<EntityTypeBuilder>().TryConfigureModifiedAt();
     }
 
-    public static void TryConfigureLastModificationTime(this EntityTypeBuilder b)
+    public static void TryConfigureModifiedAt(this EntityTypeBuilder b)
     {
         if (b.Metadata.ClrType.IsAssignableTo<IHasModifyTime>())
         {
-            b.Property(nameof(IHasModifyTime.LastModificationTime))
+            b.Property(nameof(IHasModifyTime.ModifiedAt))
                 .IsRequired(false)
-                .HasColumnName(nameof(IHasModifyTime.LastModificationTime));
+                .HasColumnName(nameof(IHasModifyTime.ModifiedAt));
         }
     }
 
@@ -146,11 +146,15 @@ public static class PrismEntityTypeBuilderExtensions
     {
         if (b.Metadata.ClrType.IsAssignableTo<IModifyAuditedObject>())
         {
-            b.TryConfigureLastModificationTime();
+            b.TryConfigureModifiedAt();
 
-            b.Property(nameof(IModifyAuditedObject.LastModifierId))
+            b.Property(nameof(IModifyAuditedObject.ModifiedBy))
                 .IsRequired(false)
-                .HasColumnName(nameof(IModifyAuditedObject.LastModifierId));
+                .HasColumnName(nameof(IModifyAuditedObject.ModifiedBy));
+            
+            b.Property(nameof(IModifyAuditedObject.ModifiedByBehalfOf))
+                .IsRequired(false)
+                .HasColumnName(nameof(IModifyAuditedObject.ModifiedByBehalfOf));
         }
     }
 

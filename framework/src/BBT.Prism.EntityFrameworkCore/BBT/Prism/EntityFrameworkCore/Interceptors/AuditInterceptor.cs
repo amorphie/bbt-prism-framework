@@ -186,9 +186,9 @@ public class AuditInterceptor(
     
     private void SetCreationAuditProperties(EntityEntry entry)
     {
-        if (entry.Entity is IHasCreationTime)
+        if (entry.Entity is IHasCreatedAt)
         {
-            entry.Property("CreationTime").CurrentValue = clock.Now;
+            entry.Property("CreatedAt").CurrentValue = clock.Now;
         }
     }
     
@@ -210,7 +210,7 @@ public class AuditInterceptor(
     {
         if (entry.Entity is IHasModifyTime)
         {
-            entry.Property("LastModificationTime").CurrentValue = clock.Now;
+            entry.Property("ModifiedAt").CurrentValue = clock.Now;
         }
     }
     

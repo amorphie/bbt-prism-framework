@@ -96,9 +96,9 @@ public abstract class CrudAppService<TEntity, TGetOutputDto, TGetListOutputDto, 
 
     protected override IQueryable<TEntity> ApplyDefaultSorting(IQueryable<TEntity> query)
     {
-        if (typeof(TEntity).IsAssignableTo<IHasCreationTime>())
+        if (typeof(TEntity).IsAssignableTo<IHasCreatedAt>())
         {
-            return query.OrderByDescending(e => ((IHasCreationTime)e).CreationTime);
+            return query.OrderByDescending(e => ((IHasCreatedAt)e).CreatedAt);
         }
         else
         {

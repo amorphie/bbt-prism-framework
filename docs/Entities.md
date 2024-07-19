@@ -38,25 +38,25 @@ For the example above, the composite key is composed of ``IssueId`` and ``RoleId
 There are a lot of auditing interfaces, so you can implement the one that you need.
 
 
-``IHasCreationTime`` defines the following properties:
-    ``CreationTime``
+``IHasCreatedAt`` defines the following properties:
+    ``CreatedAt``
 
 ``ICreationAuditedObject``  defines the following properties:
-    ``CreationTime``
-    ``CreatorId``
+    ``CreatedAt``
+    ``CreatedBy``
 
 ``IHasModifyTime`` defines the following properties:
-    ``LastModificationTime``
+    ``ModifiedAt``
 
 ``IModifyAuditedObject`` defines the following properties:
-    ``LastModificationTime``
-    ``LastModifierId``
+    ``ModifiedAt``
+    ``ModifiedBy``
 
 ``IAuditedObject`` defines the following properties:
-    ``CreationTime``
-    ``CreatorId``
-    ``LastModificationTime``
-    ``LastModifierId``
+    ``CreatedAt``
+    ``CreatedBy``
+    ``ModifiedAt``
+    ``ModifiedBy``
 
 ``ISoftDelete`` defines the following properties:
     ``IsDeleted``
@@ -71,10 +71,10 @@ There are a lot of auditing interfaces, so you can implement the one that you ne
     ``DeleterId``
 
 ``IFullAuditedObject`` defines the following properties:
-    ``CreationTime``
-    ``CreatorId``
-    ``LastModificationTime``
-    ``LastModifierId``
+    ``CreatedAt``
+    ``CreatedBy``
+    ``ModifiedAt``
+    ``ModifiedBy``
     ``IsDeleted``
     ``DeletionTime``
     ``DeleterId``

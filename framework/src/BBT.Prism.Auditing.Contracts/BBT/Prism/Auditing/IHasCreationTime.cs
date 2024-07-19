@@ -2,7 +2,7 @@ using System;
 
 namespace BBT.Prism.Auditing;
 
-public interface IHasCreationTime
+public interface IHasCreatedAt
 {
-    DateTime CreationTime { get; }
+    DateTime CreatedAt { get; }
 }
