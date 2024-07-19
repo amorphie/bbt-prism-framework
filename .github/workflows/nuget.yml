@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Create Folder
-      run: mkdir -p framework/src/packages
+      run: mkdir -p packages
     - name: Restore dependencies
       run: |
         for path in $(ls -d framework/src/*)
