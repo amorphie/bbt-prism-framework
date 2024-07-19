@@ -31,7 +31,7 @@ jobs:
         for path in $(ls -d framework/src/*)
         do
           echo $path
-          dotnet restore "framework/src/$path"
+          dotnet restore "$path"
         done
     - name: Build
       run: |
