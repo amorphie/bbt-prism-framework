@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
-        <Version>1.1.1</Version>
+        <Version>1.1.2</Version>
         <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
         <PackageIconUrl>https://github.com/amorphie/bbt-prism-framework/assets/bbt_prism_nupkg.png</PackageIconUrl>
         <PackageProjectUrl>https://github.com/amorphie/bbt-prism-framework</PackageProjectUrl>
