@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Create Folder
-      run: mkdir -p packages
+      run: mkdir -p framework/src/packages
     - name: Restore dependencies
       run: |
         for path in $(ls -d framework/src/*)
@@ -50,7 +50,7 @@ jobs:
         done
     - name: publish
       run: |
-        for path in $(ls -d *)
+        for path in $(ls -d framework/src/*)
         do
           echo $path
           dotnet nuget push packages/$path*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
