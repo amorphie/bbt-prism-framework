@@ -53,5 +53,6 @@ jobs:
         for path in $(ls  framework/src/)
         do
           echo $path
-          dotnet nuget push /home/runner/work/bbt-prism-framework/bbt-prism-framework/packages/$path.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
+          Version=$(cat common.props | grep -oP '(?<=<Version>).*?(?=</Version>)') 
+          dotnet nuget push /home/runner/work/bbt-prism-framework/bbt-prism-framework/packages/$path$Version.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.api_key }}
         done
