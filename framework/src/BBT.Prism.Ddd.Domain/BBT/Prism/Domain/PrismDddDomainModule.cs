@@ -3,6 +3,7 @@ using BBT.Prism.Data;
 using BBT.Prism.EventBus;
 using BBT.Prism.ExceptionHandling;
 using BBT.Prism.Modularity;
+using BBT.Prism.Security.Claims;
 using BBT.Prism.Uow;
 
 namespace BBT.Prism.Domain;
@@ -13,7 +14,8 @@ namespace BBT.Prism.Domain;
     typeof(PrismDataModule),
     typeof(PrismDddDomainSharedModule),
     typeof(PrismExceptionHandlingModule),
-    typeof(PrismEventBusModule)
+    typeof(PrismEventBusModule),
+    typeof(PrismSecurityModule)
 )]
 public class PrismDddDomainModule : PrismModule
 {

@@ -4,5 +4,5 @@ namespace BBT.Prism.Auditing;
 
 public interface IDeletionAuditedObject : IHasDeletionTime
 {
-    Guid? DeleterId { get; }
+    Guid? DeletedBy { get; }
 }

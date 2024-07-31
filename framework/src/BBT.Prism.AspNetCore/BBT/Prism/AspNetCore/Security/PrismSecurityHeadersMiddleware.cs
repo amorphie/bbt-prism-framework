@@ -8,17 +8,11 @@ using Microsoft.Extensions.Primitives;
 
 namespace BBT.Prism.AspNetCore.Security;
 
-public class PrismSecurityHeadersMiddleware : IMiddleware
+public sealed class PrismSecurityHeadersMiddleware(IOptions<PrismSecurityHeadersOptions> options) : IMiddleware
 {
-    public IOptions<PrismSecurityHeadersOptions> Options { get; set; }
-    protected const string ScriptSrcKey = "script-src";
-    protected const string DefaultValue = "object-src 'none'; form-action 'self'; frame-ancestors 'none'";
-
-    public PrismSecurityHeadersMiddleware(
-        IOptions<PrismSecurityHeadersOptions> options)
-    {
-        Options = options;
-    }
+    public IOptions<PrismSecurityHeadersOptions> Options { get; set; } = options;
+    private const string ScriptSrcKey = "script-src";
+    private const string DefaultValue = "object-src 'none'; form-action 'self'; frame-ancestors 'none'";
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -107,7 +101,7 @@ public class PrismSecurityHeadersMiddleware : IMiddleware
         }
     }
 
-    protected virtual string BuildContentSecurityPolicyValue(HttpContext context)
+    private string BuildContentSecurityPolicyValue(HttpContext context)
     {
         var cspValue = Options.Value.ContentSecurityPolicyValue.IsNullOrWhiteSpace() ? DefaultValue : Options.Value.ContentSecurityPolicyValue!;
         if (!(Options.Value.UseContentSecurityPolicyScriptNonce &&
@@ -132,7 +126,7 @@ public class PrismSecurityHeadersMiddleware : IMiddleware
     }
 
 
-    protected virtual void AddHeader(HttpContext context, string key, string value, bool overrideIfExists = false)
+    private void AddHeader(HttpContext context, string key, string value, bool overrideIfExists = false)
     {
         if (overrideIfExists && context.Response.Headers.TryGetValue(key, out _))
         {

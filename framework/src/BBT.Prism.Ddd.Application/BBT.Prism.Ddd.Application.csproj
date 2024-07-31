@@ -19,6 +19,7 @@
         <ProjectReference Include="..\BBT.Prism.Ddd.Application.Contracts\BBT.Prism.Ddd.Application.Contracts.csproj" />
         <ProjectReference Include="..\BBT.Prism.Ddd.Domain\BBT.Prism.Ddd.Domain.csproj" />
         <ProjectReference Include="..\BBT.Prism.Mapper\BBT.Prism.Mapper.csproj" />
+        <ProjectReference Include="..\BBT.Prism.Security\BBT.Prism.Security.csproj"/>
     </ItemGroup>
 
 </Project>

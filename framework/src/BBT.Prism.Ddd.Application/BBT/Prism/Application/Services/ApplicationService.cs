@@ -3,6 +3,7 @@ using BBT.Prism.DependencyInjection;
 using BBT.Prism.Guids;
 using BBT.Prism.Linq;
 using BBT.Prism.Mapper;
+using BBT.Prism.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -17,6 +18,7 @@ public abstract class ApplicationService(IServiceProvider serviceProvider)
     public ILazyServiceProvider LazyServiceProvider { get; } =
         serviceProvider.GetRequiredService<ILazyServiceProvider>();
     
+    protected ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
     protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetRequiredService<IGuidGenerator>();
     protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetRequiredService<IObjectMapper>();
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();

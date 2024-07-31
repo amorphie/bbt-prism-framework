@@ -9,6 +9,7 @@ using BBT.Prism.Auditing;
 using BBT.Prism.DependencyInjection;
 using BBT.Prism.ExceptionHandling;
 using BBT.Prism.Modularity;
+using BBT.Prism.Security.Claims;
 using BBT.Prism.Uow;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -19,7 +20,8 @@ namespace BBT.Prism.AspNetCore;
 [Modules(
     typeof(PrismAuditingContractsModule),
     typeof(PrismExceptionHandlingModule),
-    typeof(PrismUnitOfWorkModule)
+    typeof(PrismUnitOfWorkModule),
+    typeof(PrismSecurityModule)
 )]
 public class PrismAspNetCoreModule : PrismModule
 {
@@ -35,6 +37,8 @@ public class PrismAspNetCoreModule : PrismModule
     public override void ConfigureServices(ModuleConfigurationContext context)
     {
         AddAspNetServices(context.Services);
+
+        context.Services.AddTransient<HeaderCurrentUserContributor>();
         
         //Exception
         context.Services.AddTransient<IHttpExceptionStatusCodeFinder, DefaultHttpExceptionStatusCodeFinder>();
@@ -65,6 +69,5 @@ public class PrismAspNetCoreModule : PrismModule
     {
         services.AddSingleton<IClientScopeServiceProviderAccessor, HttpContextClientScopeServiceProviderAccessor>();
         services.AddHttpContextAccessor();
-        
     }
 }

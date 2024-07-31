@@ -13,10 +13,10 @@ public abstract class FullAuditedEntityDto : AuditedEntityDto, IFullAuditedObjec
     public bool IsDeleted { get; set; }
 
     /// <inheritdoc />
-    public Guid? DeleterId { get; set; }
+    public Guid? DeletedBy { get; set; }
 
     /// <inheritdoc />
-    public DateTime? DeletionTime { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }
 
 /// <summary>
@@ -30,8 +30,8 @@ public abstract class FullAuditedEntityDto<TPrimaryKey> : AuditedEntityDto<TPrim
     public bool IsDeleted { get; set; }
 
     /// <inheritdoc />
-    public Guid? DeleterId { get; set; }
+    public Guid? DeletedBy { get; set; }
 
     /// <inheritdoc />
-    public DateTime? DeletionTime { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

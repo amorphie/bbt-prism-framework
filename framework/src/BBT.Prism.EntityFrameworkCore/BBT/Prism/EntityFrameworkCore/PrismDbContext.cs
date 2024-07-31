@@ -12,8 +12,10 @@ using BBT.Prism.DependencyInjection;
 using BBT.Prism.Domain.Entities;
 using BBT.Prism.EntityFrameworkCore.Modeling;
 using BBT.Prism.EntityFrameworkCore.ValueConverters;
+using BBT.Prism.Guids;
 using BBT.Prism.Reflection;
 using BBT.Prism.Timing;
+using BBT.Prism.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +52,8 @@ public abstract class PrismDbContext<TDbContext>(
 
     public readonly ILazyServiceProvider LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
     public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
+    public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
+    public ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

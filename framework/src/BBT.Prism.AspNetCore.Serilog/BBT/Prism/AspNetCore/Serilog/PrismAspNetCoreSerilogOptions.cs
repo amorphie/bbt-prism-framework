@@ -5,7 +5,7 @@ namespace BBT.Prism.AspNetCore.Serilog;
 public class PrismAspNetCoreSerilogOptions
 {
     public List<string> Headers { get; } =
-        ["x-device-id", "x-request-id", "x-token-id", "instanceid", "user-reference"];
+        ["x-device-id", "x-request-id", "x-token-id", "instanceid", "user_reference"];
 
     public List<string> Wildcards { get; } = ["authorization", "password"];
     public bool ShouldBodyBeTracked { get; set; } = false;

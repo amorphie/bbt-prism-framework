@@ -13,6 +13,7 @@ using BBT.Prism.Guids;
 using BBT.Prism.Reflection;
 using BBT.Prism.Threading;
 using BBT.Prism.Timing;
+using BBT.Prism.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -22,6 +23,7 @@ namespace BBT.Prism.EntityFrameworkCore.Interceptors;
 
 public class AuditInterceptor(
     IClock clock,
+    ICurrentUser currentUser,
     IGuidGenerator guidGenerator,
     IDomainEventBus domainEventBus,
     IIntegrationEventBus integrationEventBus)
@@ -113,14 +115,14 @@ public class AuditInterceptor(
             await integrationEventBus.PublishAsync(integrationEvent.EventData.GetType(), integrationEvent.EventData);
         }
     }
-    
+
     protected virtual void ApplyConceptsForAddedEntity(EntityEntry entry)
     {
         CheckAndSetId(entry);
         SetConcurrencyStampIfNull(entry);
         SetCreationAuditProperties(entry);
     }
-    
+
     private void CheckAndSetId(EntityEntry entry)
     {
         if (entry.Entity is IEntity<Guid> entityWithGuidId)
@@ -155,7 +157,7 @@ public class AuditInterceptor(
             true
         );
     }
-    
+
     private void SetConcurrencyStampIfNull(EntityEntry entry)
     {
         var entity = entry.Entity as IHasConcurrencyStamp;
@@ -171,7 +173,7 @@ public class AuditInterceptor(
 
         entity.ConcurrencyStamp = Guid.NewGuid().ToString("N");
     }
-    
+
     private void UpdateConcurrencyStamp(EntityEntry entry)
     {
         var entity = entry.Entity as IHasConcurrencyStamp;
@@ -183,18 +185,29 @@ public class AuditInterceptor(
         entry.Property("ConcurrencyStamp").OriginalValue = entity.ConcurrencyStamp;
         entity.ConcurrencyStamp = Guid.NewGuid().ToString("N");
     }
-    
+
     private void SetCreationAuditProperties(EntityEntry entry)
     {
         if (entry.Entity is IHasCreatedAt)
         {
             entry.Property("CreatedAt").CurrentValue = clock.Now;
         }
+
+        if (entry.Entity is ICreationAuditedObject)
+        {
+            //TODO: CreatedByBehalfOf Handle
+            if (currentUser.Id.HasValue)
+            {
+                entry.Property("CreatedBy").CurrentValue = currentUser.Id.Value;
+            }
+        }
     }
-    
+
     private void ApplyConceptsForModifiedEntity(EntityEntry entry)
     {
-        if (entry.State == EntityState.Modified && entry.Properties.Any(x => x.IsModified && (x.Metadata.ValueGenerated == ValueGenerated.Never || x.Metadata.ValueGenerated == ValueGenerated.OnAdd)))
+        if (entry.State == EntityState.Modified && entry.Properties.Any(x =>
+                x.IsModified && (x.Metadata.ValueGenerated == ValueGenerated.Never ||
+                                 x.Metadata.ValueGenerated == ValueGenerated.OnAdd)))
         {
             IncrementEntityVersionProperty(entry);
             SetModificationAuditProperties(entry);
@@ -205,31 +218,49 @@ public class AuditInterceptor(
             }
         }
     }
-    
+
     private void SetModificationAuditProperties(EntityEntry entry)
     {
         if (entry.Entity is IHasModifyTime)
         {
             entry.Property("ModifiedAt").CurrentValue = clock.Now;
         }
+        
+        if (entry.Entity is IModifyAuditedObject)
+        {
+            //TODO: ModifiedByBehalfOf Handle
+            if (currentUser.Id.HasValue)
+            {
+                entry.Property("ModifiedBy").CurrentValue = currentUser.Id.Value;
+            }
+        }
     }
-    
+
     private void SetDeletionAuditProperties(EntityEntry entry)
     {
         if (entry.Entity is IHasDeletionTime)
         {
-            entry.Property("DeletionTime").CurrentValue = clock.Now;
+            entry.Property("DeletedAt").CurrentValue = clock.Now;
+        }
+        
+        if (entry.Entity is IDeletionAuditedObject)
+        {
+            if (currentUser.Id.HasValue)
+            {
+                entry.Property("DeletedBy").CurrentValue = clock.Now;
+            }
         }
     }
-    
+
     private void IncrementEntityVersionProperty(EntityEntry entry)
     {
         if (entry.Entity is IHasEntityVersion)
         {
-            entry.Property("EntityVersion").CurrentValue = Convert.ToInt32(entry.Property("EntityVersion").CurrentValue ?? 0) + 1;
+            entry.Property("EntityVersion").CurrentValue =
+                Convert.ToInt32(entry.Property("EntityVersion").CurrentValue ?? 0) + 1;
         }
     }
-    
+
     private void ApplyConceptsForDeletedEntity(EntityEntry entry)
     {
         if (!(entry.Entity is ISoftDelete))
@@ -241,7 +272,7 @@ public class AuditInterceptor(
         ObjectHelper.TrySetProperty(entry.Entity.As<ISoftDelete>(), x => x.IsDeleted, () => true);
         SetDeletionAuditProperties(entry);
     }
-    
+
     private void SetAuditEntity(DbContext context)
     {
         foreach (var entry in context!.ChangeTracker.Entries())

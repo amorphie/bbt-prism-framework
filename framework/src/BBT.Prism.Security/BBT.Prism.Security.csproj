@@ -3,11 +3,11 @@
     <Import Project="..\..\..\common.props"/>
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>Nullable</WarningsAsErrors>
-        <AssemblyName>BBT.Prism.AspNetCore</AssemblyName>
-        <PackageId>BBT.Prism.AspNetCore</PackageId>
+        <AssemblyName>BBT.Prism.Security</AssemblyName>
+        <PackageId>BBT.Prism.Security</PackageId>
         <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
         <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -19,16 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\BBT.Prism.Auditing.Contracts\BBT.Prism.Auditing.Contracts.csproj"/>
-        <ProjectReference Include="..\BBT.Prism.ExceptionHandling\BBT.Prism.ExceptionHandling.csproj"/>
-        <ProjectReference Include="..\BBT.Prism.Uow\BBT.Prism.Uow.csproj"/>
-        <ProjectReference Include="..\BBT.Prism.Security\BBT.Prism.Security.csproj"/>
+        <ProjectReference Include="..\BBT.Prism.Core\BBT.Prism.Core.csproj"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.Middleware"/>
-        <PackageReference Include="Microsoft.Extensions.Diagnostics"/>
-    </ItemGroup>
-
 
 </Project>

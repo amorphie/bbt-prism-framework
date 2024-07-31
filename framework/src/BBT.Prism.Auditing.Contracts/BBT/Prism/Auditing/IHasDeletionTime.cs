@@ -4,5 +4,5 @@ namespace BBT.Prism.Auditing;
 
 public interface IHasDeletionTime : ISoftDelete
 {
-    DateTime? DeletionTime { get; }
+    DateTime? DeletedAt { get; }
 }

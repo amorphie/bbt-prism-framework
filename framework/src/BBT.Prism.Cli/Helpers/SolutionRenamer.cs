@@ -31,7 +31,7 @@ public class SolutionRenamer
     /// <param name="folder">Solution folder (which includes .sln file)</param>
     /// <param name="companyNamePlaceHolder">Company name place holder (can be null if there is not a company name place holder)</param>
     /// <param name="projectNamePlaceHolder">Project name place holder</param>
-    /// <param name="companyName">Company name. Can be null if new solution will not have a company name prefix. Should be null if <see cref="companyNamePlaceHolder"/> is null</param>
+    /// <param name="companyName">Company name. Can be null if new solution will not have a company name prefix. Should be null if companyNamePlaceHolder is null</param>
     /// <param name="projectName">Project name</param>
     public SolutionRenamer(string folder, string? companyNamePlaceHolder, string? projectNamePlaceHolder,
         string? companyName, string? projectName)
@@ -241,7 +241,9 @@ public class SolutionRenamer
         using (var file = new FileStream(filename, FileMode.Open)) file.Read(bom, 0, 4);
 
         // Analyze the BOM
+#pragma warning disable SYSLIB0001
         if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) return Encoding.UTF7;
+#pragma warning restore SYSLIB0001
         if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) return Encoding.UTF8;
         if (bom[0] == 0xff && bom[1] == 0xfe) return Encoding.Unicode; //UTF-16LE
         if (bom[0] == 0xfe && bom[1] == 0xff) return Encoding.BigEndianUnicode; //UTF-16BE

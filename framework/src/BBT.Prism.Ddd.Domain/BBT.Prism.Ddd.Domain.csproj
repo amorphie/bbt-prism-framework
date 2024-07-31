@@ -21,6 +21,7 @@
         <ProjectReference Include="..\BBT.Prism.ExceptionHandling\BBT.Prism.ExceptionHandling.csproj" />
         <ProjectReference Include="..\BBT.Prism.Auditing.Contracts\BBT.Prism.Auditing.Contracts.csproj" />
         <ProjectReference Include="..\BBT.Prism.Data\BBT.Prism.Data.csproj" />
+        <ProjectReference Include="..\BBT.Prism.Security\BBT.Prism.Security.csproj" />
         <ProjectReference Include="..\BBT.Prism.Ddd.Domain.Shared\BBT.Prism.Ddd.Domain.Shared.csproj" />
         <ProjectReference Include="..\BBT.Prism.Auditing.Contracts\BBT.Prism.Auditing.Contracts.csproj" />
     </ItemGroup>

@@ -56,6 +56,12 @@ public static class PrismApplicationBuilderExtensions
         application.Initialize(app.ApplicationServices);
     }
     
+    public static IApplicationBuilder UserCurrentUser(this IApplicationBuilder app)
+    {
+        return app
+            .UseMiddleware<PrismCurrentUserMiddleware>();
+    }
+    
     public static IApplicationBuilder UseCorrelationId(this IApplicationBuilder app)
     {
         return app

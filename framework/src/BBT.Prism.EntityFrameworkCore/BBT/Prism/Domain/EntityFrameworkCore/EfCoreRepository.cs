@@ -10,7 +10,9 @@ using BBT.Prism.Domain.Entities;
 using BBT.Prism.Domain.Repositories;
 using BBT.Prism.EntityFrameworkCore;
 using BBT.Prism.Guids;
+using BBT.Prism.Timing;
 using BBT.Prism.Uow;
+using BBT.Prism.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +26,9 @@ public class EfCoreRepository<TDbContext, TEntity>(
     where TDbContext : class, IEfCoreDbContext
     where TEntity : class, IEntity
 {
-    public IGuidGenerator GuidGenerator => LazyServiceProvider.GetRequiredService<IGuidGenerator>();
+    public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
+    public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
+    public ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
     async Task<DbContext> IEfCoreRepository<TEntity>.GetDbContextAsync()
     {
         return (await GetDbContextAsync() as DbContext)!;

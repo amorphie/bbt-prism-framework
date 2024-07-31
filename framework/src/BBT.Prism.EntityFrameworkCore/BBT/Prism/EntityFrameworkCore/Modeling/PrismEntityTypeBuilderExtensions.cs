@@ -66,9 +66,9 @@ public static class PrismEntityTypeBuilderExtensions
         {
             b.TryConfigureSoftDelete();
 
-            b.Property(nameof(IHasDeletionTime.DeletionTime))
+            b.Property(nameof(IHasDeletionTime.DeletedAt))
                 .IsRequired(false)
-                .HasColumnName(nameof(IHasDeletionTime.DeletionTime));
+                .HasColumnName(nameof(IHasDeletionTime.DeletedAt));
         }
     }
 
@@ -84,9 +84,9 @@ public static class PrismEntityTypeBuilderExtensions
         {
             b.TryConfigureDeletionTime();
 
-            b.Property(nameof(IDeletionAuditedObject.DeleterId))
+            b.Property(nameof(IDeletionAuditedObject.DeletedAt))
                 .IsRequired(false)
-                .HasColumnName(nameof(IDeletionAuditedObject.DeleterId));
+                .HasColumnName(nameof(IDeletionAuditedObject.DeletedAt));
         }
     }
 
