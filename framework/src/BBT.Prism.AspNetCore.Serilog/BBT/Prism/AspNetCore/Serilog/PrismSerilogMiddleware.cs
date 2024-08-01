@@ -43,7 +43,7 @@ public class PrismSerilogMiddleware(
         var correlationId = correlationIdProvider.Get();
         if (!string.IsNullOrEmpty(correlationId))
         {
-            enrichers.Add(new PropertyEnricher("RequestId", correlationId));
+            enrichers.Add(new PropertyEnricher("CorrelationId", correlationId));
         }
     }
 
@@ -66,6 +66,7 @@ public class PrismSerilogMiddleware(
         {
             if (context.Request.ContentLength is > 0)
             {
+                context.Request.EnableBuffering();
                 string body;
                 using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8, true, 1024, true))
                 {

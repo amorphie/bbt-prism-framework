@@ -1,16 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="..\..\common.props"/>
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <RootNamespace>BBT.MyProjectName</RootNamespace>
-        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="BBT.Prism.Ddd.Domain.Shared" Version="$(PrismPackageVersion)" />
-    </ItemGroup>
-    
+  <Import Project="..\..\common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>BBT.MyProjectName</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BBT.Prism.Ddd.Domain.Shared" Version="$(PrismPackageVersion)" />
+  </ItemGroup>
 </Project>

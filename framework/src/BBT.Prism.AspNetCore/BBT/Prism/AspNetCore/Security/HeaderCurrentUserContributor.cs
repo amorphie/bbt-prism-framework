@@ -17,7 +17,7 @@ public class HeaderCurrentUserContributor(IHttpContextAccessor httpContextAccess
         }
 
         var userId = context.Request.Headers[PrismClaimTypes.UserId];
-        if (Guid.TryParse(userId, out var parsedUserId))
+        if (!Guid.TryParse(userId, out var parsedUserId))
         {
             return null;
         }
@@ -29,7 +29,18 @@ public class HeaderCurrentUserContributor(IHttpContextAccessor httpContextAccess
         var phone = context.Request.Headers[PrismClaimTypes.Phone].FirstOrDefault() ?? string.Empty;
         var rolesHeader = context.Request.Headers[PrismClaimTypes.Role].FirstOrDefault();
         var roles = rolesHeader != null ? rolesHeader.Split(',') : [];
+        var actorUserName = context.Request.Headers[PrismClaimTypes.ActorSub].FirstOrDefault() ?? string.Empty;
 
+        var actorUserHeader = context.Request.Headers[PrismClaimTypes.Phone].FirstOrDefault();
+        Guid? actorUserId = null;
+        if (actorUserHeader != null)
+        {
+            if (Guid.TryParse(actorUserHeader, out var parsedActorUserId))
+            {
+                actorUserId = parsedActorUserId;
+            } 
+        }
+        
         return new BasicUserInfo(
             parsedUserId,
             userName,
@@ -37,7 +48,9 @@ public class HeaderCurrentUserContributor(IHttpContextAccessor httpContextAccess
             surname,
             email,
             phone,
-            roles
+            roles,
+            actorUserId,
+            actorUserName
         );
     }
 }

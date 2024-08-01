@@ -6,7 +6,7 @@ public static class PrismClaimTypes
 {
     /// <summary>
     /// Default: sub
-    /// Identity No
+    /// (Identity No)
     /// </summary>
     public static string UserName { get; set; } = "sub";
     
@@ -41,13 +41,19 @@ public static class PrismClaimTypes
     public static string Phone { get; set; } = "phone_number";
 
     /// <summary>
-    /// Default: act
-    /// Delegation
+    /// Default: act_sub
+    /// (Actor Delegation) - sub
     /// </summary>
-    public static string Actor { get; set; } = "act";
+    public static string ActorSub { get; set; } = "act_sub";
     
     /// <summary>
-    /// Default: "client_id".
+    /// Default: act_uid
+    /// (Actor Delegation) - userid
+    /// </summary>
+    public static string ActorUserId { get; set; } = "act_uid";
+    
+    /// <summary>
+    /// Default: "client_id"
     /// </summary>
     public static string ClientId { get; set; } = "client_id";
 }

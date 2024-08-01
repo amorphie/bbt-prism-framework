@@ -27,8 +27,7 @@ public class PrismSecurityModule : PrismModule
 
     public override void ConfigureServices(ModuleConfigurationContext context)
     {
-        context.Services.AddTransient<ClaimBasedCurrentUserContributor>();
-        context.Services.AddTransient<ICurrentUserAccessor, AsyncLocalCurrentUserAccessor>();
+        context.Services.AddSingleton<ICurrentUserAccessor>(AsyncLocalCurrentUserAccessor.Instance);
         context.Services.AddTransient<ICurrentUserResolver, CurrentUserResolver>();
         context.Services.AddTransient<ICurrentUser, CurrentUser>();
     }

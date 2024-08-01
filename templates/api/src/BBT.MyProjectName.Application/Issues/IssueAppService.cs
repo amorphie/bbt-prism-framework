@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BBT.Prism.Application.Services;
 using BBT.Prism.Uow;
+using Microsoft.Extensions.Logging;
 
 namespace BBT.MyProjectName.Issues;
 
@@ -27,6 +28,8 @@ public class IssueAppService(
             input.Title,
             input.Text
         );
+        
+        Logger.LogInformation("Issue has been created. {IssueId}", issue.Id);
 
         await issueRepository.InsertAsync(issue, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);

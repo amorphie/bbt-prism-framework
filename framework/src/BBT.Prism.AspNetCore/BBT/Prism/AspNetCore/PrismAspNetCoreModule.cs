@@ -38,12 +38,14 @@ public class PrismAspNetCoreModule : PrismModule
     {
         AddAspNetServices(context.Services);
 
+        context.Services.AddTransient<ClaimBasedCurrentUserContributor>();
         context.Services.AddTransient<HeaderCurrentUserContributor>();
         
         //Exception
         context.Services.AddTransient<IHttpExceptionStatusCodeFinder, DefaultHttpExceptionStatusCodeFinder>();
         
         //Middleware
+        context.Services.AddTransient<PrismCurrentUserMiddleware>();
         context.Services.AddTransient<PrismCorrelationIdMiddleware>();
         context.Services.AddTransient<PrismSecurityHeadersMiddleware>();
         context.Services.AddExceptionHandler();

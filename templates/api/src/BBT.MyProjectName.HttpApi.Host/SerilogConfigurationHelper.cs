@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using BBT.Prism.AspNetCore.Serilog;
 using Microsoft.Extensions.Configuration;

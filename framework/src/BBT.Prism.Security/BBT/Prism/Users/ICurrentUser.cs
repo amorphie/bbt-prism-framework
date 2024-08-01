@@ -12,6 +12,8 @@ public interface ICurrentUser
     public string? Email { get; }
     public string? Phone { get; }
     string[]? Roles { get; }
+    Guid? ActorUserId { get; }
+    string? ActorUserName { get; }
     bool IsInRole(string roleName);
 
     IDisposable Change(
@@ -21,5 +23,7 @@ public interface ICurrentUser
         string? surname = null,
         string? email = null,
         string? phone = null,
-        string[]? roles = null);
+        string[]? roles = null,
+        Guid? actorUserId = null,
+        string? actorUserName = null);
 }

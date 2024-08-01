@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Elastic.Channels;
+using Elastic.Ingest.Elasticsearch;
+using Elastic.Ingest.Elasticsearch.DataStreams;
+using Elastic.Serilog.Sinks;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Core;
@@ -36,7 +40,16 @@ public class SerilogConfigurationBuilder(string applicationName, IConfiguration 
             .Enrich.WithSpan()
             .WriteTo.Async(c => c.File(new CompactJsonFormatter(), $"Logs/{applicationName}-log.json",
                 rollingInterval: RollingInterval.Day))
+            // .WriteTo.Elasticsearch(new [] { new Uri("http://localhost:9200" )}, opts =>
+            // {
+            //     opts.DataStream = new DataStreamName("logs", "console-example", "demo");
+            //     opts.BootstrapMethod = BootstrapMethod.Failure;
+            // })
+            #if DEBUG
             .WriteTo.Async(c => c.Console());
+            #else
+            ;
+            #endif
         
         return this;
     }

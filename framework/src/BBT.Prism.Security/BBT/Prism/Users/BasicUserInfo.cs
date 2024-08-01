@@ -9,7 +9,9 @@ public class BasicUserInfo(
     string? surname = null,
     string? email = null,
     string? phone = null,
-    string[]? roles = null)
+    string[]? roles = null,
+    Guid? actorUserId = null,
+    string? actorUserName = null)
 {
     public Guid? Id { get; set; } = id;
     public string? UserName { get; set; } = userName;
@@ -18,5 +20,7 @@ public class BasicUserInfo(
     public string? Email { get; set; } = email;
     public string? Phone { get; set; } = phone;
     public string[]? Roles { get; set; } = roles;
+    public Guid? ActorUserId { get; set; } = actorUserId;
+    public string? ActorUserName { get; set; } = actorUserName;
     
 }

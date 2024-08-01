@@ -1,16 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <Import Project="..\..\common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <RootNamespace>BBT.MyProjectName</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="BBT.Prism.Ddd.Application.Contracts" Version="$(PrismPackageVersion)" />
-        <ProjectReference Include="..\BBT.MyProjectName.Domain.Shared\BBT.MyProjectName.Domain.Shared.csproj" />
-    </ItemGroup>
-
+  <Import Project="..\..\common.props" />
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>BBT.MyProjectName</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BBT.MyProjectName.Domain.Shared\BBT.MyProjectName.Domain.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BBT.Prism.Ddd.Application.Contracts" Version="$(PrismPackageVersion)" />
+  </ItemGroup>
 </Project>

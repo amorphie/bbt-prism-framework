@@ -21,7 +21,8 @@
         "DAPR_GRPC_PORT": "42011",
         "DAPR_SECRET_STORE_NAME": "MyProjectName-secretstore",
         "DAPR_STATE_STORE_NAME": "MyProjectName-cache",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317"
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317",
+        "OTEL_SERVICE_NAME": "myprojectname"
       }
     },
     "https": {
@@ -35,7 +36,8 @@
         "DAPR_GRPC_PORT": "42011",
         "DAPR_SECRET_STORE_NAME": "MyProjectName-secretstore",
         "DAPR_STATE_STORE_NAME": "MyProjectName-cache",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317"
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317",
+        "OTEL_SERVICE_NAME": "myprojectname"
       }
     },
     "IIS Express": {
@@ -47,7 +49,8 @@
         "DAPR_GRPC_PORT": "42011",
         "DAPR_SECRET_STORE_NAME": "MyProjectName-secretstore",
         "DAPR_STATE_STORE_NAME": "MyProjectName-cache",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317"
+        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317",
+        "OTEL_SERVICE_NAME": "myprojectname"
       }
     }
   }

@@ -20,6 +20,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.8.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.8.1" />
+    <PackageVersion Include="Elastic.Apm.NetCoreAll" Version="1.28.0" />
     
     <!-- Microsoft -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />

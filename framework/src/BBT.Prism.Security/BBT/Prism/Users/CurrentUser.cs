@@ -13,6 +13,8 @@ public class CurrentUser(ICurrentUserAccessor currentUserAccessor) : ICurrentUse
     public string? Email => currentUserAccessor.Current?.Email;
     public string? Phone => currentUserAccessor.Current?.Phone;
     public string[]? Roles => currentUserAccessor.Current?.Roles;
+    public Guid? ActorUserId => currentUserAccessor.Current?.ActorUserId; 
+    public string? ActorUserName => currentUserAccessor.Current?.ActorUserName; 
 
     public bool IsInRole(string roleName)
     {
@@ -26,10 +28,12 @@ public class CurrentUser(ICurrentUserAccessor currentUserAccessor) : ICurrentUse
         string? surname = null,
         string? email = null,
         string? phone = null,
-        string[]? roles = null
+        string[]? roles = null,
+        Guid? actorUserId = null,
+        string? actorUserName = null
     )
     {
-        return SetCurrent(id, userName, name, surname, email, phone, roles);
+        return SetCurrent(id, userName, name, surname, email, phone, roles, actorUserId, actorUserName);
     }
 
     private IDisposable SetCurrent(
@@ -39,11 +43,13 @@ public class CurrentUser(ICurrentUserAccessor currentUserAccessor) : ICurrentUse
         string? surname = null,
         string? email = null,
         string? phone = null,
-        string[]? roles = null
+        string[]? roles = null,
+        Guid? actorUserId = null,
+        string? actorUserName = null
     )
     {
         var parentScope = currentUserAccessor.Current;
-        currentUserAccessor.Current = new BasicUserInfo(id, userName, name, surname, email, phone, roles);
+        currentUserAccessor.Current = new BasicUserInfo(id, userName, name, surname, email, phone, roles, actorUserId, actorUserName);
         return new DisposeAction(() => { currentUserAccessor.Current = parentScope; });
     }
 }

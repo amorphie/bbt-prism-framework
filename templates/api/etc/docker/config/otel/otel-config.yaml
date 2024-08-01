@@ -5,25 +5,41 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
+        endpoint: 0.0.0.0:4318  
 
 # Configure exporters
 exporters:
-  # Export prometheus endpoint
-  prometheus:
-    endpoint: "0.0.0.0:8889"
-
-  zipkin:
-    endpoint: localhost:9411
+  otlp:
+    endpoint: otelcol:4317
+    
+# Export prometheus endpoint
+#  prometheus:
+#    endpoint: "0.0.0.0:8889"
+  
+  elasticsearch:
+    index: "bbt-template"
+    endpoints: [ "http://bbt-elastic:9200" ]
+    tls:
+        insecure: true
+      
+  otlp/elastic:
+    endpoint: "bbt-apm:8200"
     tls:
       insecure: true
+    
+#  zipkin:
+#    endpoint: localhost:9411
+#    tls:
+#      insecure: true
 
   # log to the console
   logging:
 
-  # Export to a file
-  file:
-    path: /etc/output/logs.json
+# Export to a file
+#  file:
+#    path: /etc/output/logs.json
 
 # Configure processors (batch, sampling, filtering, hashing sensitive data, etc.)
 # https://opentelemetry.io/docs/collector/configuration/#processors
@@ -40,12 +56,12 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging,file,zipkin]
+      exporters: [logging, otlp/elastic]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [logging, otlp/elastic]
     logs:
       receivers: [otlp]
-      processors: []
-      exporters: [logging, file]
+      processors: [batch]
+      exporters: [logging, elasticsearch]

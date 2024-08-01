@@ -56,7 +56,7 @@ public static class PrismApplicationBuilderExtensions
         application.Initialize(app.ApplicationServices);
     }
     
-    public static IApplicationBuilder UserCurrentUser(this IApplicationBuilder app)
+    public static IApplicationBuilder UseCurrentUser(this IApplicationBuilder app)
     {
         return app
             .UseMiddleware<PrismCurrentUserMiddleware>();

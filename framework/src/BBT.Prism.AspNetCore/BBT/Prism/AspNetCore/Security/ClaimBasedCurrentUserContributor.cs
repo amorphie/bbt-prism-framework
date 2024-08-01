@@ -23,6 +23,16 @@ public class ClaimBasedCurrentUserContributor(IHttpContextAccessor httpContextAc
             return null;
         }
 
+        var actorUserClaim = claimsPrincipal.FindFirst(PrismClaimTypes.Phone)?.Value;
+        Guid? actorUserId = null;
+        if (actorUserClaim != null)
+        {
+            if (Guid.TryParse(actorUserClaim, out var parsedActorUserId))
+            {
+                actorUserId = parsedActorUserId;
+            } 
+        }
+
         return new BasicUserInfo(
             Guid.Parse(claimsPrincipal.FindFirst(PrismClaimTypes.UserId)!.Value),
             claimsPrincipal.FindFirst(PrismClaimTypes.UserName)?.Value,
@@ -30,7 +40,9 @@ public class ClaimBasedCurrentUserContributor(IHttpContextAccessor httpContextAc
             claimsPrincipal.FindFirst(PrismClaimTypes.SurName)?.Value,
             claimsPrincipal.FindFirst(PrismClaimTypes.Email)?.Value,
             claimsPrincipal.FindFirst(PrismClaimTypes.Phone)?.Value,
-            claimsPrincipal.FindAll(PrismClaimTypes.Role).Select(c => c.Value).ToArray()
+            claimsPrincipal.FindAll(PrismClaimTypes.Role).Select(c => c.Value).ToArray(),
+            actorUserId,
+            claimsPrincipal.FindFirst(PrismClaimTypes.ActorSub)?.Value
         );
     }
 }

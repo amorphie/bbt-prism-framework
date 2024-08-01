@@ -1,22 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <Import Project="..\..\common.props" />
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <RootNamespace>BBT.MyProjectName</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="BBT.Prism.EntityFrameworkCore.Sqlite" Version="$(PrismPackageVersion)" />
-        <ProjectReference Include="..\..\src\BBT.MyProjectName.EntityFrameworkCore\BBT.MyProjectName.EntityFrameworkCore.csproj" />
-        <ProjectReference Include="..\BBT.MyProjectName.Application.Tests\BBT.MyProjectName.Application.Tests.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    </ItemGroup>
-
-
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>BBT.MyProjectName</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BBT.MyProjectName.EntityFrameworkCore\BBT.MyProjectName.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\BBT.MyProjectName.Application.Tests\BBT.MyProjectName.Application.Tests.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BBT.Prism.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+  </ItemGroup>
 </Project>

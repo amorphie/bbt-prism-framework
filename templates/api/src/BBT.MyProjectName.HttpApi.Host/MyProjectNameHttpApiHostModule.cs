@@ -81,7 +81,7 @@ public class MyProjectNameHttpApiHostModule : PrismModule
     {
         Configure<PrismAspNetCoreSerilogOptions>(options =>
         {
-            options.ShouldBodyBeTracked = false;
+            options.ShouldBodyBeTracked = true;
             // options.AddHeader(new []{ "example" });
             // options.AddWildcard(new []{ "example" });
         });
@@ -163,6 +163,7 @@ public class MyProjectNameHttpApiHostModule : PrismModule
         app.UseHttpsRedirection();
         app.UseCorrelationId();
         app.UseSecurityHeaders();
+        app.UseCurrentUser();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseCors();

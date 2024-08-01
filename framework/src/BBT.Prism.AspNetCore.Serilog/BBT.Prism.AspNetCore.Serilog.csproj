@@ -33,5 +33,6 @@
         <PackageReference Include="Serilog.Exceptions"/>
         <PackageReference Include="Serilog.Sinks.Console"/>
         <PackageReference Include="Serilog.Sinks.OpenTelemetry"/>
+        <PackageReference Include="Elastic.Serilog.Sinks"/>
     </ItemGroup>
 </Project>

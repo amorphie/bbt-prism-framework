@@ -195,10 +195,14 @@ public class AuditInterceptor(
 
         if (entry.Entity is ICreationAuditedObject)
         {
-            //TODO: CreatedByBehalfOf Handle
             if (currentUser.Id.HasValue)
             {
                 entry.Property("CreatedBy").CurrentValue = currentUser.Id.Value;
+            }
+            
+            if (currentUser.ActorUserId.HasValue)
+            {
+                entry.Property("CreatedByBehalfOf").CurrentValue = currentUser.ActorUserId.Value;
             }
         }
     }
@@ -228,10 +232,14 @@ public class AuditInterceptor(
         
         if (entry.Entity is IModifyAuditedObject)
         {
-            //TODO: ModifiedByBehalfOf Handle
             if (currentUser.Id.HasValue)
             {
                 entry.Property("ModifiedBy").CurrentValue = currentUser.Id.Value;
+            }
+            
+            if (currentUser.ActorUserId.HasValue)
+            {
+                entry.Property("ModifiedByBehalfOf").CurrentValue = currentUser.ActorUserId.Value;
             }
         }
     }
