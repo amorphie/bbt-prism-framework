@@ -1,14 +1,23 @@
 using System;
 using System.Linq;
-using System.Security.Claims;
+using BBT.Prism.Security.Claims;
 using BBT.Prism.Users;
+using Microsoft.AspNetCore.Http;
 
-namespace BBT.Prism.Security.Claims;
+namespace BBT.Prism.AspNetCore.Security;
 
-public class ClaimBasedCurrentUserContributor(ClaimsPrincipal claimsPrincipal) : ICurrentUserContributor
+public class ClaimBasedCurrentUserContributor(IHttpContextAccessor httpContextAccessor) : ICurrentUserContributor
 {
     public BasicUserInfo? GetCurrentUser()
     {
+        var context = httpContextAccessor.HttpContext;
+        if (context == null)
+        {
+            return null;
+        }
+
+        var claimsPrincipal = context.User;
+
         if (claimsPrincipal.FindFirst(PrismClaimTypes.UserId)?.Value == null)
         {
             return null;
