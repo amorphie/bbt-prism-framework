@@ -204,29 +204,42 @@ public class SolutionRenamer
     {
         return Regex.Replace(input, oldValue, match =>
         {
-            string replacement = newValue;
+            string matchedValue = match.Value;
 
-            // Eğer match.Value, newValue'dan uzunsa, newValue'yu match.Value ile aynı uzunluğa kısalt
-            if (match.Value.Length > newValue.Length)
+            // Eğer matchedValue tamamen küçük harflerden oluşuyorsa
+            if (matchedValue.ToLower() == matchedValue)
             {
-                replacement = newValue.PadRight(match.Value.Length);
+                return newValue.ToLower(); // newValue'yu tamamen küçük harfe dönüştür
             }
 
-            // Her eşleşme için yeni değerin aynı büyük/küçük harf kalıbında olanı ile değiştir
-            char[] replacementChars = replacement.ToCharArray();
-            for (int i = 0; i < match.Value.Length; i++)
-            {
-                if (char.IsUpper(match.Value[i]))
-                {
-                    replacementChars[i] = char.ToUpper(replacementChars[i]);
-                }
-                else
-                {
-                    replacementChars[i] = char.ToLower(replacementChars[i]);
-                }
-            }
-            return new string(replacementChars).Trim();
+            // Aksi takdirde newValue'yu olduğu gibi döndür
+            return newValue;
         }, RegexOptions.IgnoreCase);
+        // return Regex.Replace(input, oldValue, match =>
+        // {
+        //     string replacement = newValue;
+        //
+        //     // Eğer match.Value, newValue'dan uzunsa, newValue'yu match.Value ile aynı uzunluğa kısalt
+        //     if (match.Value.Length > newValue.Length)
+        //     {
+        //         replacement = newValue.PadRight(match.Value.Length);
+        //     }
+        //
+        //     // Her eşleşme için yeni değerin aynı büyük/küçük harf kalıbında olanı ile değiştir
+        //     char[] replacementChars = replacement.ToCharArray();
+        //     for (int i = 0; i < match.Value.Length; i++)
+        //     {
+        //         if (char.IsUpper(match.Value[i]))
+        //         {
+        //             replacementChars[i] = char.ToUpper(replacementChars[i]);
+        //         }
+        //         else
+        //         {
+        //             replacementChars[i] = char.ToLower(replacementChars[i]);
+        //         }
+        //     }
+        //     return new string(replacementChars).Trim();
+        // }, RegexOptions.IgnoreCase);
     }
 
     private static long GetFileSize(string file)

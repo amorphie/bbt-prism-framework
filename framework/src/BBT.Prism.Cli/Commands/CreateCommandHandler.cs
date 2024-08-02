@@ -13,7 +13,7 @@ namespace Commands;
 public class CreateCommandHandler(IConsole console) : ICommandHandler<CreateCommandOptions, CreateCommandArguments>
 {
     // Inject anything here, no more hard dependency on System.CommandLine
-    private const string RepoUrl = "https://github.com/amorphie/bbt-prism-framework.git";
+    private const string RepoUrl = "https://github.com/amorphie/bbt-prism-template.git";
 
     public async Task<int> HandleAsync(CreateCommandOptions options, CreateCommandArguments? arguments,
         CancellationToken cancellationToken)
