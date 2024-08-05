@@ -19,16 +19,10 @@ public class SerilogConfigurationBuilder(string applicationName, IConfiguration 
 {
     private readonly LoggerConfiguration _loggerConfiguration = new();
 
-    public SerilogConfigurationBuilder AddDefaultConfiguration()
+    public SerilogConfigurationBuilder AddDefaultConfiguration(bool debugMode = false)
     {
         _loggerConfiguration
             .ReadFrom.Configuration(configuration)
-#if DEBUG
-            .MinimumLevel.Debug()
-            .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", LogEventLevel.Warning)
-#else
-            .MinimumLevel.Information()
-#endif
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .MinimumLevel.Override("HealthChecks", LogEventLevel.Warning)
@@ -39,17 +33,19 @@ public class SerilogConfigurationBuilder(string applicationName, IConfiguration 
             .Enrich.WithThreadId()
             .Enrich.WithSpan()
             .WriteTo.Async(c => c.File(new CompactJsonFormatter(), $"Logs/{applicationName}-log.json",
-                rollingInterval: RollingInterval.Day))
-            // .WriteTo.Elasticsearch(new [] { new Uri("http://localhost:9200" )}, opts =>
-            // {
-            //     opts.DataStream = new DataStreamName("logs", "console-example", "demo");
-            //     opts.BootstrapMethod = BootstrapMethod.Failure;
-            // })
-            #if DEBUG
-            .WriteTo.Async(c => c.Console());
-            #else
-            ;
-            #endif
+                rollingInterval: RollingInterval.Day));
+
+        if (debugMode)
+        {
+            _loggerConfiguration
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft.AspNetCore.Hosting.Diagnostics", LogEventLevel.Warning)
+                .WriteTo.Async(c => c.Console());
+        }
+        else
+        {
+            _loggerConfiguration.MinimumLevel.Information();
+        }
         
         return this;
     }
@@ -59,7 +55,7 @@ public class SerilogConfigurationBuilder(string applicationName, IConfiguration 
         _loggerConfiguration.Enrich.With(enricher);
         return this;
     }
-    
+
     public SerilogConfigurationBuilder AddOpenTelemetry(string? otlpUrl = null)
     {
         var url = otlpUrl ?? configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
@@ -67,7 +63,7 @@ public class SerilogConfigurationBuilder(string applicationName, IConfiguration 
         {
             throw new InvalidOperationException("OTLP endpoint cannot be empty.");
         }
-        
+
         _loggerConfiguration.WriteTo.OpenTelemetry(cfg =>
         {
             cfg.Endpoint = url!;

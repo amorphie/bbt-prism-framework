@@ -166,7 +166,7 @@ public class AuditInterceptor(
             return;
         }
 
-        if (entity.ConcurrencyStamp != null)
+        if (!string.IsNullOrEmpty(entity.ConcurrencyStamp))
         {
             return;
         }
@@ -198,6 +198,11 @@ public class AuditInterceptor(
             if (currentUser.Id.HasValue)
             {
                 entry.Property("CreatedBy").CurrentValue = currentUser.Id.Value;
+            }
+            else
+            {
+                //TODO: Warning! Should always come from currentuser
+                entry.Property("CreatedBy").CurrentValue = guidGenerator.Create();
             }
             
             if (currentUser.ActorUserId.HasValue)
@@ -235,6 +240,11 @@ public class AuditInterceptor(
             if (currentUser.Id.HasValue)
             {
                 entry.Property("ModifiedBy").CurrentValue = currentUser.Id.Value;
+            }
+            else
+            {
+                //TODO: Warning! Should always come from currentuser
+                entry.Property("ModifiedBy").CurrentValue = guidGenerator.Create();
             }
             
             if (currentUser.ActorUserId.HasValue)

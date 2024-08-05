@@ -9,7 +9,7 @@ namespace BBT.Prism.Domain.Services;
 
 public class MultiLingualEntityManager: IMultiLingualEntityManager
 {
-    public const string DefaultLanguage = "en-EN";
+    public const string DefaultLanguage = "en-US";
 
     protected const int MaxCultureFallbackDepth = 5;
     
