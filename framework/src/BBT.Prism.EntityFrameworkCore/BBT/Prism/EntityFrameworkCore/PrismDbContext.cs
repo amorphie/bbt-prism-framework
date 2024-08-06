@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using BBT.Prism.Data;
 using BBT.Prism.DependencyInjection;
 using BBT.Prism.Domain.Entities;
+using BBT.Prism.Domain.Values;
 using BBT.Prism.EntityFrameworkCore.Modeling;
 using BBT.Prism.EntityFrameworkCore.ValueConverters;
 using BBT.Prism.Guids;
@@ -286,8 +287,14 @@ public abstract class PrismDbContext<TDbContext>(
 
     private void TrackRelatedEntities(object entity, EntityState state)
     {
+        // var navigationProperties = entity.GetType().GetProperties()
+        //     .Where(p => typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType))
+        //     .ToList();
+        
         var navigationProperties = entity.GetType().GetProperties()
-            .Where(p => typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType))
+            .Where(p => typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType) 
+                        && typeof(IEntity).IsAssignableFrom(p.PropertyType.GetGenericArguments()[0])
+                        || typeof(ValueObject).IsAssignableFrom(p.PropertyType.GetGenericArguments()[0]))
             .ToList();
 
         foreach (var navigationProperty in navigationProperties)
