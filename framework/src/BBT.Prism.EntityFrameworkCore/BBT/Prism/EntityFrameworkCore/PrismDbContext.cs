@@ -36,14 +36,14 @@ public abstract class PrismDbContext<TDbContext>(
                 nameof(ConfigureBaseProperties),
                 BindingFlags.Instance | BindingFlags.NonPublic
             )!;
-    
+
     private readonly static MethodInfo ConfigureValueConverterMethodInfo
         = typeof(PrismDbContext<TDbContext>)
             .GetMethod(
                 nameof(ConfigureValueConverter),
                 BindingFlags.Instance | BindingFlags.NonPublic
             )!;
-    
+
     private readonly static MethodInfo ConfigureValueGeneratedMethodInfo
         = typeof(PrismDbContext<TDbContext>)
             .GetMethod(
@@ -51,17 +51,22 @@ public abstract class PrismDbContext<TDbContext>(
                 BindingFlags.Instance | BindingFlags.NonPublic
             )!;
 
-    public readonly ILazyServiceProvider LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
+    public readonly ILazyServiceProvider LazyServiceProvider =
+        serviceProvider.GetRequiredService<ILazyServiceProvider>();
+
     public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
-    public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
+
+    public IGuidGenerator GuidGenerator =>
+        LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
+
     public ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         TrySetDatabaseProvider(modelBuilder);
-        
+
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             ConfigureBasePropertiesMethodInfo
@@ -77,7 +82,7 @@ public abstract class PrismDbContext<TDbContext>(
                 .Invoke(this, new object[] { modelBuilder, entityType });
         }
     }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -87,7 +92,7 @@ public abstract class PrismDbContext<TDbContext>(
 
         base.OnConfiguring(optionsBuilder);
     }
-    
+
     protected virtual void TrySetDatabaseProvider(ModelBuilder modelBuilder)
     {
         var provider = GetDatabaseProviderOrNull(modelBuilder);
@@ -122,7 +127,7 @@ public abstract class PrismDbContext<TDbContext>(
                 return null;
         }
     }
-    
+
     public override int SaveChanges()
     {
         TrackEntityStates();
@@ -167,8 +172,9 @@ public abstract class PrismDbContext<TDbContext>(
     {
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
-    
-    protected virtual void ConfigureBaseProperties<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType)
+
+    protected virtual void ConfigureBaseProperties<TEntity>(ModelBuilder modelBuilder,
+        IMutableEntityType mutableEntityType)
         where TEntity : class
     {
         if (mutableEntityType.IsOwned())
@@ -184,8 +190,9 @@ public abstract class PrismDbContext<TDbContext>(
         modelBuilder.Entity<TEntity>().ConfigureByConvention();
         ConfigureGlobalFilters<TEntity>(modelBuilder, mutableEntityType);
     }
-    
-    protected virtual void ConfigureValueConverter<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType)
+
+    protected virtual void ConfigureValueConverter<TEntity>(ModelBuilder modelBuilder,
+        IMutableEntityType mutableEntityType)
         where TEntity : class
     {
         if (mutableEntityType.BaseType == null &&
@@ -193,11 +200,14 @@ public abstract class PrismDbContext<TDbContext>(
             !typeof(TEntity).IsDefined(typeof(OwnedAttribute), true) &&
             !mutableEntityType.IsOwned())
         {
-            foreach (var property in mutableEntityType.GetProperties().
-                         Where(property => property.PropertyInfo != null &&
-                                           (property.PropertyInfo.PropertyType == typeof(DateTime) || property.PropertyInfo.PropertyType == typeof(DateTime?)) &&
-                                           property.PropertyInfo.CanWrite &&
-                                           ReflectionHelper.GetSingleAttributeOfMemberOrDeclaringTypeOrDefault<DisableDateTimeNormalizationAttribute>(property.PropertyInfo) == null))
+            foreach (var property in mutableEntityType.GetProperties().Where(property =>
+                         property.PropertyInfo != null &&
+                         (property.PropertyInfo.PropertyType == typeof(DateTime) ||
+                          property.PropertyInfo.PropertyType == typeof(DateTime?)) &&
+                         property.PropertyInfo.CanWrite &&
+                         ReflectionHelper
+                             .GetSingleAttributeOfMemberOrDeclaringTypeOrDefault<DisableDateTimeNormalizationAttribute>(
+                                 property.PropertyInfo) == null))
             {
                 modelBuilder
                     .Entity<TEntity>()
@@ -208,8 +218,9 @@ public abstract class PrismDbContext<TDbContext>(
             }
         }
     }
-    
-    protected virtual void ConfigureValueGenerated<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType)
+
+    protected virtual void ConfigureValueGenerated<TEntity>(ModelBuilder modelBuilder,
+        IMutableEntityType mutableEntityType)
         where TEntity : class
     {
         if (!typeof(IEntity<Guid>).IsAssignableFrom(typeof(TEntity)))
@@ -225,8 +236,9 @@ public abstract class PrismDbContext<TDbContext>(
 
         idPropertyBuilder.ValueGeneratedNever();
     }
-    
-    protected virtual void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType)
+
+    protected virtual void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder,
+        IMutableEntityType mutableEntityType)
         where TEntity : class
     {
         if (mutableEntityType.BaseType == null && ShouldFilterEntity<TEntity>(mutableEntityType))
@@ -238,7 +250,7 @@ public abstract class PrismDbContext<TDbContext>(
             }
         }
     }
-    
+
     protected virtual bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType) where TEntity : class
     {
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
@@ -248,7 +260,7 @@ public abstract class PrismDbContext<TDbContext>(
 
         return false;
     }
-    
+
     protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>()
         where TEntity : class
     {
@@ -261,7 +273,7 @@ public abstract class PrismDbContext<TDbContext>(
 
         return expression;
     }
-    
+
     private void TrackEntityStates()
     {
         var addedEntities = ChangeTracker.Entries()
@@ -287,15 +299,20 @@ public abstract class PrismDbContext<TDbContext>(
 
     private void TrackRelatedEntities(object entity, EntityState state)
     {
-        // var navigationProperties = entity.GetType().GetProperties()
-        //     .Where(p => typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType))
-        //     .ToList();
-        
         var navigationProperties = entity.GetType().GetProperties()
-            .Where(p => typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType) 
-                        && typeof(IEntity).IsAssignableFrom(p.PropertyType.GetGenericArguments()[0])
-                        || typeof(ValueObject).IsAssignableFrom(p.PropertyType.GetGenericArguments()[0]))
+            .Where(p =>
+                typeof(IEnumerable<object>).IsAssignableFrom(p.PropertyType)
+                && p.PropertyType != typeof(string[])
+                && p.PropertyType != typeof(List<string>)
+                && p.PropertyType != typeof(byte[])
+                && !typeof(IDictionary<,>).IsAssignableFrom(p.PropertyType)
+                && !typeof(Dictionary<,>).IsAssignableFrom(p.PropertyType)
+                && !typeof(Tuple<>).IsAssignableFrom(p.PropertyType)
+                && !typeof(Tuple<,>).IsAssignableFrom(p.PropertyType)
+                && !typeof(Tuple<,,>).IsAssignableFrom(p.PropertyType)
+            )
             .ToList();
+
 
         foreach (var navigationProperty in navigationProperties)
         {
